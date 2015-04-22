@@ -1,0 +1,35 @@
+body {
+	background-color: #789;
+	font-family: georgia, serif;
+	font-size: 13px;
+}
+
+#content {
+	display: block; /*元素显示为块级元素*/
+	width: 812px;
+	margin: 40px auto 10px;
+	padding: 10px;
+	background-color: #FFF;
+	/*意思为四周角半径*/
+	-moz-border-radius: 20px; /*专门支持firefox浏览器，采用Gecko内核*/
+	-webkit-border-radius: 20px; /*专门支持safari， chrome浏览器，采用webkit内核*/
+	border-radius: 20px;
+
+	border: 2px solid black;
+
+	/*box-shadow: h-shadow v-shadow blur spread color inset;
+		h-shadow 水平阴影
+		v-shadow 垂直阴影
+		blur 模糊距离
+		spread 阴影尺寸
+		inset 将外部阴影（outset）改成内部阴影
+	*/
+	-mox-box-shadow: 0 0 60px #123;
+	-webkit-box-shadow: 0 0 60px #123;
+	box-shadow: 0 0 60px #123;
+}
+
+h2, p{
+	margin: 0 auto 14px;
+	text-align: center;
+}
