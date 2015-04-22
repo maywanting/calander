@@ -13,10 +13,10 @@ class event
 		if (is_array($event))
 		{
 			$this->id = $event['event_id'];
-			$this->title = $event['title'];
-			$this->description = $event['description'];
-			$this->start = $event['start'];
-			$this->end = $event['end'];
+			$this->title = $event['event_title'];
+			$this->description = $event['event_desc'];
+			$this->start = $event['event_start'];
+			$this->end = $event['event_end'];
 		}
 		else
 		{

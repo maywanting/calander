@@ -42,7 +42,7 @@ class calendar extends db_connect
 			$start_date = date('Y-m-d H:i:s', $start_ts);
 			$end_date = date('Y-m-d H:i:s', $end_ts);
 
-			$sqi .= "WHERE `event_start` BETWEEN '$start_date' AND '$end_date' ORDER BY `event_start`";
+			$sql .= "WHERE `event_start` BETWEEN '$start_date' AND '$end_date' ORDER BY `event_start`";
 		}
 
 		try
@@ -128,6 +128,57 @@ class calendar extends db_connect
 		}
 		$html .= "\n\t<ul class=\"weekdays\">" . $labels . "\n\t</ul>";
 
+		$events = $this->_createEventObj();
+
+		$html .= "\n\t<ul>";
+		for ($i = 1, $c = 1, $t = date('j'), $m = date('m'), $y = date('Y'); $c <= $this->_daysInMonth; $i++)
+		{
+			//$i记录星期，$c记录日期
+			//本月1号开始之前
+			$class = ($i <= $this->_startDay) ? "fill" : NULL;
+
+			//标识今天
+			if ($c == $t && $m == $this->_m && $y == $this->_y)
+			{
+				$class = "today";
+			}
+
+
+			$ls = sprintf("\n\t\t<li class=\"%s\">", $class); //sprintf(format,arg1,arg2,arg++)把格式化的字符串写入变量中
+			$le = "\n\t\t</li>";
+
+			$event_info = NULL;
+			if ($this->_startDay < $i && $this->_daysInMonth >= $c)
+			{
+				if (isset($events[$c]))
+				{
+					foreach ($events[$c] as $event) {
+						$link = '<a href="view.php?event_id='
+							. $event->id . '">' . $event->title
+							. '</a>';
+						$event_info .= "\n\t\t\t$link";
+					}
+				}
+				$date = sprintf("\n\t\t\t<strong>%02d</strong>", $c++);
+			}
+			else
+			{
+				$date = "&nbsp;";
+			}
+
+			$wrap = ($i != 0 && $i%7 == 0) ? "\n\t</ul>\n\t<ul>" : NULL;
+
+			$html .= $ls . $date . $event_info . $le . $wrap;
+		}
+
+		//本月结束之后空余
+		while ($i %7 != 1)
+		{
+			$html .= "\n\t\t<li class=\"fill\">&nbsp;</li>";
+			++$i;
+		}
+
+		$html .= "\n\t</ul>\n\n";
 		return $html;
 	}
 
