@@ -6,9 +6,9 @@ class db_connect
 
 	protected function __construct($dbo = NULL)
 	{
-		if (is_object($db))//bool is_object(mixed $var) 检测变量是否为一个对象
+		if (is_object($dbo))//bool is_object(mixed $var) 检测变量是否为一个对象
 		{ 
-			$this->db = $db;
+			$this->db = $dbo;
 		}
 		else
 		{

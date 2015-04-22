@@ -12,10 +12,10 @@ $dbo = new PDO($dsn, DB_USER,DB_PASS);
 function __autoload($class)
 {
 	$filename = "../sys/class/class." . $class . ".inc.php";
-
+	
 	if (file_exists($filename)) //file_exits(path) 检查文件或目录是否存在。
 	{
-		include_once $filename;
+		require_once $filename;
 	}
 }
 ?>
