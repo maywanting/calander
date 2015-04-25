@@ -23,5 +23,11 @@ class db_connect
 			}
 		}
 	}
+
+	protected function _errorOutPut($error)
+	{
+		if (DB_ERROR_REPORT == false) return;
+		die("ERROR MESSAGE: " . $error[2]);
+	}
 }
 ?>
