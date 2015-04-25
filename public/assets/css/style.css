@@ -15,7 +15,7 @@ body {
 	-webkit-border-radius: 20px; /*专门支持safari， chrome浏览器，采用webkit内核*/
 	border-radius: 20px;
 
-	border: 2px solid black;
+	border: 2px solid white;
 
 	/*box-shadow: h-shadow v-shadow blur spread color inset;
 		h-shadow 水平阴影
@@ -29,7 +29,99 @@ body {
 	box-shadow: 0 0 60px #123;
 }
 
-h2, p{
+h2, p {
 	margin: 0 auto 14px;
 	text-align: center;
+}
+
+ul {
+	display: block;
+	clear: left; /*意思为元素的哪一侧不允许其他浮动元素*/
+	height: 82px;
+	width: 812px;
+	margin: 0 auto;
+	padding: 0;
+	list-style: none;
+	background-color: #FFF;
+	text-align: center;
+	border: 1px solid black;
+	border-top: 0;
+	border-bottom: 2px solid black;
+}
+
+li {
+	position: relative;
+	float: left;
+	margin: 0;
+	padding: 20px 2px 2px;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	width: 110px;
+	height: 60px;
+	overflow: hidden; /*当内容溢出文本框时*/
+	background-color: white;
+}
+
+/*鼠标悬浮在li标签之上时的样式*/
+li:hover {
+	background-color: #FCB;
+	z-index: 1; /*设置元素的堆叠顺序*/
+	
+	-mox-box-shadow: 0 0 10px #789;
+	-webkit-box-shadow: 0 0 10px #789;
+	box-shadow: 0 0 10px #789;
+}
+
+.weekdays {
+	height: 20px;
+	border-top: 2px solid black;
+}
+
+.weekdays li {
+	height: 16px;
+	padding: 2px 2px;
+	background-color: #BCF;
+}
+
+.fill {
+	background-color: #BCD;
+}
+
+.weekdays li:hover, .today {
+	background-color: #BCF;
+}
+
+li strong {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}
+
+li a {
+	position: relative;
+	display: block;
+	border: 1px dotted black; /*边框为虚线*/
+	margin: 2px;
+	padding: 2px;
+	font-size: 11px;
+	background-color: #DEF;
+	text-align: left;
+
+	-mox-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	
+	z-index: 1;
+	text-decoration: none;/*对文本设置某种特殊效果*/
+	color: black;
+	font-weight: bold;
+	font-style: italic;
+}
+
+li a:hover {
+	background-color: #BCF;
+	z-index: 2;
+	-moz-box-shadow: 0 0 6px #789;
+	-webkit-box-shadow: 0 0 6px #789;
+	box-shadow: 0 0 6px #789;
 }
