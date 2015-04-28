@@ -1,0 +1,97 @@
+fieldset {
+	border: 0;
+}
+
+legend {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+input[type=text], input[type=password], label {
+	display: block;
+	width: 70%;
+	font-weight: bold;
+}
+
+textarea {
+	width: 99%;
+	height: 200px;
+}
+
+input[type=text], input[type=password], textarea {
+	border: 2px solid #789;
+
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+
+	-moz-box-shadow: inset 1px 2px 4px #789;
+	-webkit-box-shadow: inset 1px 2px 4px #789;
+	box-shadow: inset 1px 2px 4px #789;
+
+	padding: 4px;
+	margin: 0 0 4px;
+	font-size: 16px;
+	font-family: georgia, serif;
+}
+
+input[type=submit] {
+	margin: 4px 0;
+	padding: 4px;
+	border: 1px solid #123;
+
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+
+	-moz-box-shadow: inset -2px -1px 3px #345, inset 1px 1px 3px #BCF, 1px 2px 6px #789;
+	-webkit-box-shadow: inset -2px -1px 3px #345, inset 1px 1px 3px #BCF, 1px 2px 6px #789;
+	box-shadow: inset -2px -1px 3px #345, inset 1px 1px 3px #BCF, 1px 2px 6px #789;
+
+	background-color: #789;
+	font-family: georgia, serif;
+
+	/*
+	对文本进行英文大小写转化
+	none：表示使用原始值。
+	lowercase：表示使每个词的所有字母小写。
+	uppercase：表示使每个单词的所有字母大写。
+	capitalize：表示使每个单词的第一个字母大写。
+	*/
+	text-transform: capitalize;
+	font-weight: bold;
+	font-size: 14px;
+	text-shadow: 0px 0px 1px #fff;
+}
+
+.admin-options {
+	text-align: center;
+}
+
+.admin-options form, .admin-option p{
+	display: inline;
+}
+
+a.admin {
+	display: inline-block;/*将对象呈递为内联对象，但是对象的内容作为块对象呈递。旁边的内联对象会被呈递在同一行内，允许空格。*/
+	margin: 4px 0;
+	padding: 4px;
+	border: 1px solid #123;
+
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+
+	-moz-box-shadow: inset -2px -1px 3px #345, inset 1px 1px 3px #BCF, 1px 2px 6px #789;
+	-webkit-box-shadow: inset -2px -1px 3px #345, inset 1px 1px 3px #BCF, 1px 2px 6px #789;
+	box-shadow: inset -2px -1px 3px #345, inset 1px 1px 3px #BCF, 1px 2px 6px #789;
+
+	background-color: #789;
+	color: black;
+	text-decoration: none;
+	font-family: georgia, serif;
+	text-transform: capitalize;
+	font-weight: bold;
+	font-size: 14px;
+	text-shadow: 0px 0px 1px #fff;
+}

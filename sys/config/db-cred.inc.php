@@ -1,7 +1,8 @@
 <?php
 
 //报告所有错误
-error_reporting(E_ALL);
+error_reporting(E_ALL^E_NOTICE);
+
 ini_set("display_errors","on");
 
 //数据库配置文件

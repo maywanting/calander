@@ -88,7 +88,10 @@ class calendar extends db_connect
 		}
 
 		$html .= "\n\t</ul>\n\n";
-		return $html;
+
+		$admin = $this->_adminGeneralOption();
+
+		return $html . $admin;
 	}
 
 	public function  displayEvent($id)
@@ -109,6 +112,104 @@ class calendar extends db_connect
 		return "<h2>$event->title</h2>"
 			. "\n\t<p class=\"dates\">$date, $start&mdash;$end</p>"
 			. "\n\t<p>$event->description</p>";
+	}
+
+	public function displayForm()
+	{
+		if (isset($_POST['event_id']))
+		{
+			$id = (int)$_POST['event_id'];
+		}
+		else
+		{
+			$id = NULL;
+		}
+
+		$submit = "Create a New Event";
+
+		if (!empty($id))
+		{
+			$event = $this->_loadEventById($id);
+			if (!is_object($event))
+			{
+				return NULL;
+			}
+
+			$submit = "Edit This Event";
+		}
+
+		return 
+<<<FORM_MARKUP
+	<form action="assets/inc/process.inc.php" method="post">
+		<fieldset>
+			<legend>{$submit}</legend>
+			<label for="event_title">Event Title</label>
+			<input type="text" name="event_title" id="event_title" value="$event->title"/>
+			<label for="event_start">Start Time</label>
+			<input type="text" name="event_start" id="event_start" value="$event->start"/>
+			<label for="event_end">End Time</label>
+			<input type="text" name="event_end" id="event_end" value="$event->end"/>
+			<label for"evnet_description">Event Description</label>
+			<textarea name="evnet_description" id="evnet_description">$event->description</textarea>
+			<input type="hidden" name="event_id" value="$event->id"/>
+			<input type="hidden" name="token" value="$_SESSION[token]" />
+			<input type="hidden" name="action" value="event_edit" />
+			<input type="submit" name="event_submit" value="$submit" /> or <a href="./"> cancel </a>
+		</fieldset>
+	</form>
+FORM_MARKUP;
+	}
+
+	public function processForm()
+	{
+		if ($_POST['action'] != 'event_edit')
+		{
+			return "The method processForm was accessed incorrectly";
+		}
+		//通俗点说，当一个字符串包含标签，然后直接echo出来的话浏览器就会把标签解析成html然后显示，这个函数的功能就是不让那些标签被解析出来，还是按照原来的样式输出。
+		$title = htmlentities($_POST['event_title'], ENT_QUOTES);
+		$desc = htmlentities($_POST['evnet_description'], ENT_QUOTES);
+		$start = htmlentities($_POST['event_start'], ENT_QUOTES);
+		$end = htmlentities($_POST['event_end'], ENT_QUOTES);
+
+		if (empty($_POST['event_id']))
+		{
+			$sql = "INSERT INTO `events`(`event_title`, `event_desc`, `event_start`, `event_end`)
+					VALUES (:title, :description, :start, :end)";
+		}
+		else
+		{
+			$id = (int)$_POST['event_id'];
+			$sql = "UPDATE `events`
+					SET 
+						`event_title`=:title,
+						`event_desc`=:description,
+						`event_start=:start,
+						`event_end=:end
+					WHERE `event_id`=$id";
+		}
+
+		try
+		{
+			$stmt = $this->db->prepare($sql);
+			$stmt->bindParam(":title", $title, PDO::PARAM_STR);
+			$stmt->bindParam(":description", $desc, PDO::PARAM_STR);
+			$stmt->bindParam(":start", $start, PDO::PARAM_STR);
+			$stmt->bindParam(":end", $end, PDO::PARAM_STR);
+
+			if ($stmt->execute() == false)
+            {
+            	$this->_errorOutPut($stmt->errorInfo());
+            }
+
+			$stmt->closeCursor();
+
+			return TRUE;
+		}
+		catch (Exception $e)
+		{
+			return $e->getMessage();
+		}
 	}
 
 	private function _loadEventData($id = NULL)
@@ -216,6 +317,27 @@ class calendar extends db_connect
 
 		if (isset($event[0])) return new event($event[0]);
 		else return NULL;
+	}
+
+	private function _adminGeneralOption()
+	{
+		return
+<<<ADMIN_OPTION
+	<a href="admin.php" class="admin"> + Add a New Event</a>
+ADMIN_OPTION;
+	}
+
+	private function _adminEntryOption($id)
+	{
+		return
+<<<ADMIN_OPTION
+	<div class="admin-options">
+		<form action="admin.php" method="post">
+			<p>
+				<input type="submit" name="edit_event" value="Edit "
+			</p>
+		</form>
+	</div>
 	}
 }
 ?>
