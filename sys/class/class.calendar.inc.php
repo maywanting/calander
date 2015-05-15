@@ -109,9 +109,11 @@ class calendar extends db_connect
 		$start = date('g:ia', $ts);
 		$end = date('g:ia', strtotime($event->end));
 
+		$admin = $this->_adminEntryOption($id);
+
 		return "<h2>$event->title</h2>"
 			. "\n\t<p class=\"dates\">$date, $start&mdash;$end</p>"
-			. "\n\t<p>$event->description</p>";
+			. "\n\t<p>$event->description</p>$admin";
 	}
 
 	public function displayForm()
@@ -184,8 +186,8 @@ FORM_MARKUP;
 					SET 
 						`event_title`=:title,
 						`event_desc`=:description,
-						`event_start=:start,
-						`event_end=:end
+						`event_start`=:start,
+						`event_end`=:end
 					WHERE `event_id`=$id";
 		}
 
@@ -210,6 +212,68 @@ FORM_MARKUP;
 		{
 			return $e->getMessage();
 		}
+	}
+
+	public function confirmDelete($id)
+	{
+		if (empty($id))
+		{
+			return NULL;
+		}
+
+		$id = preg_replace('/[^0-9]/', '', $id);
+
+		if (isset($_POST['confirm_delete']) && ($_POST['token'] == $_SESSION['token']))
+		{
+			if ($_POST['confirm_delete'] == "Yes, Delete It")
+			{
+				$sql = "DELETE FROM `events`
+						WHERE `event_id`=:id
+						LIMIT 1";
+				try
+				{
+					$stmt = $this->db->prepare($sql);
+					$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+					if ($stmt->execute() == false)
+		            {
+		            	$this->_errorOutPut($stmt->errorInfo());
+		            }
+		            $stmt->closeCursor();
+		            header("Location: ./");
+					return;
+				}
+				catch (Exception $e)
+				{
+					return $e->getMessage();
+				}
+			}
+			else
+			{
+				header("Location: ./");
+				return;
+			}
+		}
+
+		$event = $this->_loadEventById($id);
+
+		if (!is_object($event))
+		{
+			header("Location: ./");
+		}
+
+		return
+<<<confirm_delete
+	<form action="confirmdelete.php" method="post">
+		<h2>Are you sure you want to delete "$event->title"?</h2>
+		<p>There is <strong>no undo </strong> if you continue.</p>
+		<p>
+			<input type="submit" name="confirm_delete" value="Yes, Delete It"/>
+			<input type="submit" name="confirm_delete" value="Nope! Just Kidding!" />
+			<input type="hidden" name="event_id" value="$event->id" />
+			<input type="hidden" name="token" value="$_SESSION[token]"/>
+		</p>
+	</form>
+confirm_delete;
 	}
 
 	private function _loadEventData($id = NULL)
@@ -334,10 +398,18 @@ ADMIN_OPTION;
 	<div class="admin-options">
 		<form action="admin.php" method="post">
 			<p>
-				<input type="submit" name="edit_event" value="Edit "
+				<input type="submit" name="edit_event" value="Edit This Event"/>
+				<input type="hidden" name="event_id" value="$id"/>
+			</p>
+		</form>
+		<form action="confirmdelete.php" method="post">
+			<p>
+				<input type="submit" name="delete_event" value="Delete This Event"/>
+				<input type="hidden" name="event_id" value="$id"/>
 			</p>
 		</form>
 	</div>
+ADMIN_OPTION;
 	}
 }
 ?>
