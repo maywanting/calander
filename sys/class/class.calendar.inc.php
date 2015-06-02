@@ -324,7 +324,6 @@ confirm_delete;
             	$this->_errorOutPut($stmt->errorInfo());
             }
 				
-			
 			/*array PDOStatement::fetchAll ([ int $fetch_style [, mixed $fetch_argument [, array $ctor_args = array() ]]] )函数返回一个包含结果集的中所有行的二维数组
 				PDO::FETCH_ASSOC：返回一个索引为结果集列名的数组
 				PDO::FETCH_BOTH（默认）：返回一个索引为结果集列名和以0开始的列号的数组

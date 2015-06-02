@@ -5,7 +5,7 @@ if (!isset($_SESSION['token']))
 {
 	/*
 	sha1()加密，sha1加密比md5更为高级点
-	string uniqid ([ string $prefix = "" [, bool $more_entropy = false ]] ) 生成唯一的ID， more_entropy函数在结尾额外添加煽使得更具唯一性，说白了钱一个参数是前缀，后一个参数是开启后缀的开关。
+	string uniqid ([ string $prefix = "" [, bool $more_entropy = false ]] ) 生成唯一的ID， more_entropy函数在结尾额外添加煽使得更具唯一性，说白了前一个参数是前缀，后一个参数是开启后缀的开关。
 	mt_rand()效率比rand（）高四倍，产生随机数
 	*/
 	$_SESSION['token'] = sha1(uniqid(mt_rand(), true));
