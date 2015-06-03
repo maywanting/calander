@@ -19,7 +19,6 @@ class admin extends db_connect
   		if ($_POST['action'] != 'user_login'){
   			return "Invalid action supplied for processLoginForm.";
   		}
-
   		$uname = htmlentities($_POST['username'], ENT_QUOTES);
   		$pword = htmlentities($_POST['password'], ENT_QUOTES);
 
@@ -28,24 +27,25 @@ class admin extends db_connect
   				WHERE 
   					`user_name` = :uname
   				LIMIT 1";
-
   		try{
   			$stmt = $this->db->prepare($sql);
   			$stmt->bindParam(':uname', $uname, PDO::PARAM_STR);
 
-  			if ($stmt->execute()){
+  			if (!$stmt->execute()){
+  				echo 111;
   				$this->_errorOutPut($stmt->errorInfo());
   			}
 
   			//mixed array_shift ( array &$array ) 删除数组中头一个，并返回删除的元素，所有的数字键名将改为从零开始计数，文字键名将不变。
-  			$user = array_shift($stmt->fetchAll());
+  			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  			$user = array_shift($result);
   			$stmt->closeCursor();
 
   		}catch (Exception $e){
   			die ($e->getMessage());
   		}
 
-  		if (!isset($user)){
+  		if (isset($user) == false){
   			return "No user found with that ID";
   		}
 
@@ -63,6 +63,17 @@ class admin extends db_connect
   		}
   	}
 
+  	public function processLogout()
+  	{
+  		if ($_POST['action'] != 'user_logout')
+  		{
+  			return "Invalid action supplied for processLogout";
+  		}
+
+  		session_destroy();
+  		return TRUE;
+  	}
+
   	//密码加“盐”处理
   	private function _getSaltedHash($string, $salt = NULL)
   	{
@@ -74,7 +85,7 @@ class admin extends db_connect
   		{
   			$salt = substr($salt, 0, $this->_saltLength);
   		}
-
+  		return $salt . sha1($salt . $string);
   	}
 }
 ?>

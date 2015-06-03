@@ -384,15 +384,35 @@ confirm_delete;
 
 	private function _adminGeneralOption()
 	{
-		return
+		if (isset($_SESSION['user']))
+		{
+			return
 <<<ADMIN_OPTION
 	<a href="admin.php" class="admin"> + Add a New Event</a>
+	<form action="assets/inc/process.inc.php" method="post">
+		<div>
+			<input type="submit" value="Log Out" class="admin"/>
+			<input type="hidden" name="token" value="$_SESSION[token]"/>
+			<input type="hidden" name="action" value="user_logout"/>
+		</div>
+	</form>
 ADMIN_OPTION;
+		}
+		else
+		{
+			return
+<<<ADMIN_OPTION
+	<a href = "login.php"> Login In </a>
+ADMIN_OPTION;
+		}
+		
 	}
 
 	private function _adminEntryOption($id)
 	{
-		return
+		if (isset($_SESSION['user']))
+		{
+			return
 <<<ADMIN_OPTION
 	<div class="admin-options">
 		<form action="admin.php" method="post">
@@ -409,6 +429,11 @@ ADMIN_OPTION;
 		</form>
 	</div>
 ADMIN_OPTION;
+		}
+		else
+		{
+			return NULL;
+		}
 	}
 }
 ?>

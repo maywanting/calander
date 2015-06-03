@@ -1,4 +1,5 @@
 <?php
+echo 11;
 session_start();
 
 include_once '../../../sys/config/db-cred.inc.php';
@@ -21,7 +22,17 @@ $actions = array(
 				'object' => 'calendar',
 				'method' => 'processForm',
 				'header' => 'Location: ../../'
-				) 
+			),
+		'user_login' => array(
+				'object' => 'admin',
+				'method' => 'processLoginForm',
+				'header' => 'Location: ../../'
+			),
+		'user_logout' => array(
+				'object' => 'admin',
+				'method' => 'processLogout',
+				'header' => 'Location: ../../'
+			)
 		);
 
 if ($_POST['token']==$_SESSION['token'] && isset($actions[$_POST['action']]))
@@ -42,7 +53,7 @@ if ($_POST['token']==$_SESSION['token'] && isset($actions[$_POST['action']]))
 else
 {
 	header("Location: ../../");
-	exit;
+ 	exit;
 }
 
 ?>

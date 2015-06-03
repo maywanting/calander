@@ -15,7 +15,7 @@ include_once 'assets/common/header.inc.php';
 			<label for="password">Password:</label>
 			<input type="password" name="password" id="password" value=""/>
 
-			<input type="hidden" name="token" value="<?php echo $_SESSION['tolen'];?>"/>
+			<input type="hidden" name="token" value="<?php echo $_SESSION['token'];?>"/>
 			<input type="hidden" name="action" value="user_login"/>
 			<input type="submit" name="login_submit" value="Log In"/>
 			or <a href="./">cancel</a>
