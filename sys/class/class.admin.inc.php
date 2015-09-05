@@ -6,33 +6,32 @@ class admin extends db_connect
 
   	public function __construct($db=NULL, $saltLength=NULL)
   	{
-  		parent::__construct($db);
+  	   	parent::__construct($db);
 
-  		if(is_int($saltLength))
-  		{
-  			$this->_saltLength = $saltLength;
-  		}
+  		  if(is_int($saltLength))
+  		  {
+  			    $this->_saltLength = $saltLength;
+  		  }
   	}
 
   	public function processLoginForm()
   	{
-  		if ($_POST['action'] != 'user_login'){
-  			return "Invalid action supplied for processLoginForm.";
-  		}
-  		$uname = htmlentities($_POST['username'], ENT_QUOTES);
-  		$pword = htmlentities($_POST['password'], ENT_QUOTES);
+  		  if ($_POST['action'] != 'user_login'){
+  			   return "Invalid action supplied for processLoginForm.";
+  		  }
+  		  $uname = htmlentities($_POST['username'], ENT_QUOTES);
+  		  $pword = htmlentities($_POST['password'], ENT_QUOTES);
 
-  		$sql = "SELECT `user_id`, `user_name`, `user_email`, `user_pass`
-  				FROM `users`
-  				WHERE 
-  					`user_name` = :uname
-  				LIMIT 1";
-  		try{
-  			$stmt = $this->db->prepare($sql);
-  			$stmt->bindParam(':uname', $uname, PDO::PARAM_STR);
+  		  $sql = "SELECT `user_id`, `user_name`, `user_email`, `user_pass`
+  				  FROM `users`
+  				  WHERE 
+  					   `user_name` = :uname
+  				  LIMIT 1";
+  		  try{
+  			    $stmt = $this->db->prepare($sql);
+  			    $stmt->bindParam(':uname', $uname, PDO::PARAM_STR);
 
   			if (!$stmt->execute()){
-  				echo 111;
   				$this->_errorOutPut($stmt->errorInfo());
   			}
 

@@ -97,7 +97,6 @@ class calendar extends db_connect
 	public function  displayEvent($id)
 	{
 		if (empty($id)) return NULL;
-
 		//mixed preg_replace ( mixed $pattern , mixed $replacement , mixed $subject [, int $limit = -1 [, int &$count ]] )
 		//搜索subject中匹配pattern的部分， 以replacement进行替换。
 		$id = preg_replace('/[^0-9]/', '', $id);

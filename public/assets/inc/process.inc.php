@@ -1,5 +1,4 @@
 <?php
-echo 11;
 session_start();
 
 include_once '../../../sys/config/db-cred.inc.php';

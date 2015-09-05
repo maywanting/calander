@@ -1,0 +1,55 @@
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+
+	/*第一个参数是红色的数值，取值为0~255，第二个参数为绿色的数值， 第三个数值为蓝色数值，最后一个是透明度，取值为0~1，而且数值越小越淡*/
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 4;
+}
+
+.modal-window {
+	position: absolute;
+	top: 140px;
+	left: 50%;
+	width: 300px;
+	height: auto;
+	margin-left: -150px;
+	padding: 20px;
+	border: 2px solid #000;
+	background-color: #FFF;
+
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+
+	-moz-box-shadow: 0 0 14px #123;
+	-webkit-box-shadow: 0 0 14px #123;
+	box-shadow: 0 0 14px #123;
+	z-index: 5;
+}
+
+.modal-close-btn {
+	position: absolute;
+	top: 0;
+	right: 4px;
+	margin: 0;
+	padding: 0;
+
+	/*规定文本的属性修饰*/
+	text-decoration: none;
+	color: black;
+	font-size: 16px;
+}
+
+.model-close-btn:before {
+	position: relative;
+	top: -1px;
+	content: "Close";
+
+	text-transform: uppercase; /*表示每个单词首字母为大写*/
+	font-size: 10px;
+}
