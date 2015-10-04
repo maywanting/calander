@@ -1,6 +1,7 @@
 $(function($){
 
 	var processFile = "assets/inc/ajax.inc.php";
+
 	//对象字面量
 	var fx = {
 		"initModal" : function() {
@@ -72,4 +73,22 @@ $(function($){
 			}
 		});
 	});
+
+	$(".admin").on("click", "", function(event) {
+		event.preventDefault();
+
+		var action = "edit_event";
+
+		$.ajax({
+			type: "POST",
+			url: processFile,
+			data: "action="+action,
+			success: function(data) {
+				var form = $(data).hide();
+				var modal = fx.initModal
+			}
+		});
+
+		console.log("add a new event");
+	})
 });
