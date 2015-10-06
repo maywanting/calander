@@ -85,7 +85,7 @@ $(function($){
 			data: "action="+action,
 			success: function(data) {
 				var form = $(data).hide();
-				var modal = fx.initModal
+				var modal = fx.initModal();
 			}
 		});
 
