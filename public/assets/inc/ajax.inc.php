@@ -11,7 +11,11 @@ $actions = array(
 		'event_view' => array(
 			'object' => 'calendar',
 			'method' => 'displayEvent'
-		)	
+		),
+		'edit_event' => array(
+			'object' => 'calendar',
+			'method' => 'displayForm'
+		)
 	);
 
 if (isset($actions[$_POST['action']])) {

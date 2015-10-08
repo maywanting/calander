@@ -84,8 +84,11 @@ $(function($){
 			url: processFile,
 			data: "action="+action,
 			success: function(data) {
-				var form = $(data).hide();
 				var modal = fx.initModal();
+				fx.boxin(data, modal);
+			},
+			error: function(msg) {
+				alert(msg);
 			}
 		});
 
