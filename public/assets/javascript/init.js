@@ -74,7 +74,7 @@ $(function($){
 		});
 	});
 
-	$(".admin").on("click", "", function(event) {
+	$("a[href='admin.php']").on("click", "", function(event) {
 		event.preventDefault();
 
 		var action = "edit_event";
@@ -91,7 +91,12 @@ $(function($){
 				alert(msg);
 			}
 		});
+	});
 
-		console.log("add a new event");
-	})
+	$("a[href='./']").on("click", "", function(event) {
+		
+		//fx.boxout(event);
+		event.preventDefault();
+		console.log("lala");
+	});
 });
