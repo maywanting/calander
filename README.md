@@ -2,5 +2,3 @@
 
 - You can create the event what you should do soon
 - many functions are still designing
-- test  chdwsjaheufhu
-- 妮萨会哦呢
